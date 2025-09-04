@@ -5,6 +5,7 @@
 from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Optional
+from uuid import UUID
 
 from mfd_typing import PCIAddress, PCIDevice, MACAddress
 
@@ -34,7 +35,7 @@ class VlanInterfaceInfo:
     """Structure for vlan interface info."""
 
     vlan_id: int
-    parent: Optional[str] = None
+    parent: str | None = None
 
 
 @dataclass
@@ -54,8 +55,8 @@ class VsiInfo:
 class ClusterInfo:
     """Structure for cluster info."""
 
-    node: Optional[str] = None
-    network: Optional[str] = None
+    node: str | None = None
+    network: str | None = None
 
 
 @dataclass
@@ -66,14 +67,14 @@ class InterfaceInfo:
     All possible fields that can be helpful, while creating network interface.
     """
 
-    pci_address: Optional[PCIAddress] = None
-    pci_device: Optional[PCIDevice] = None
-    name: Optional[str] = None
+    pci_address: PCIAddress | None = None
+    pci_device: PCIDevice | None = None
+    name: str | None = None
     interface_type: InterfaceType = InterfaceType.GENERIC
-    mac_address: Optional[MACAddress] = None
-    installed: Optional[bool] = None
-    branding_string: Optional[str] = None
-    vlan_info: Optional[VlanInterfaceInfo] = None
+    mac_address: MACAddress | None = None
+    installed: bool | None = None
+    branding_string: str | None = None
+    vlan_info: VlanInterfaceInfo | None = None
 
 
 @dataclass
@@ -84,8 +85,9 @@ class LinuxInterfaceInfo(InterfaceInfo):
     All possible fields that can be helpful, while creating network interface.
     """
 
-    namespace: Optional[str] = None
-    vsi_info: Optional[VsiInfo] = None
+    namespace: str | None = None
+    vsi_info: VsiInfo | None = None
+    uuid: UUID | None = None
 
 
 @dataclass
@@ -96,16 +98,16 @@ class WindowsInterfaceInfo(InterfaceInfo):
     All possible fields that can be helpful, while creating network interface.
     """
 
-    description: Optional[str] = None
-    index: Optional[str] = None
-    manufacturer: Optional[str] = None
-    net_connection_status: Optional[str] = None
-    pnp_device_id: Optional[str] = None
-    product_name: Optional[str] = None
-    service_name: Optional[str] = None
-    guid: Optional[str] = None
-    speed: Optional[str] = None
-    cluster_info: Optional[ClusterInfo] = None
+    description: str | None = None
+    index: str | None = None
+    manufacturer: str | None = None
+    net_connection_status: str | None = None
+    pnp_device_id: str | None = None
+    product_name: str | None = None
+    service_name: str | None = None
+    guid: str | None = None
+    speed: str | None = None
+    cluster_info: ClusterInfo | None = None
 
 
 # WindowsInterfaceInfo field matched with PowerShell name of property
