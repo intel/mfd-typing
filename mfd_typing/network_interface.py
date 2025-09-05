@@ -4,7 +4,6 @@
 
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Optional
 from uuid import UUID
 
 from mfd_typing import PCIAddress, PCIDevice, MACAddress
