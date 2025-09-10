@@ -229,6 +229,8 @@ def get_windows_version_from_kernel(kernel_version: str) -> WindowsFlavour:
         return WindowsFlavour.WindowsServer2022
     elif kernel_version == 22621:
         return WindowsFlavour.WindowsServer2022H2
+    elif kernel_version == 25398:
+        return WindowsFlavour.AzureStackHCI23H2
     elif kernel_version == 26100:
         return WindowsFlavour.WindowsServer2025
     else:

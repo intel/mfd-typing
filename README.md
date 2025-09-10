@@ -50,7 +50,11 @@ class WindowsFlavour(Enum):
     WindowsServer2016 = "Microsoft Windows Server 2016"     # Windows-10.0.14393
     WindowsServer2019 = "Microsoft Windows Server 2019"     # Windows-10.0.17763
     WindowsServer2022 = "Microsoft Windows Server 2022"     # Windows-10.0.20348
+    WindowsServer2025 = "Microsoft Windows Server 2025"     # Windows-10.0.26100
     WindowsServer2022H2 = "Microsoft Windows Server 2022 H2"   # Windows-10.0.22621
+    AzureStackHCI22H2 = "Microsoft Azure Stack HCI 22H2"  # Windows-10.0.20349
+    AzureStackHCI23H2 = "Microsoft Azure Stack HCI 23H2"  # Windows-10.0.25398
+    AzureStackHCI24H2 = "Microsoft Azure Stack HCI 24H2"  # Windows-10.0.26100
 
 ```
 
