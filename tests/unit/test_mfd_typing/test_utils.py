@@ -105,6 +105,11 @@ class Testutils:
         expected_windows_version = WindowsFlavour.WindowsServer2016
         assert utils.get_windows_version_from_kernel(kernel_version=kernel_version) == expected_windows_version
 
+    def test_get_windows_version_from_kernel_pass_ashci23h2(self):
+        kernel_version = "25398"
+        expected_windows_version = WindowsFlavour.AzureStackHCI23H2
+        assert utils.get_windows_version_from_kernel(kernel_version=kernel_version) == expected_windows_version
+
     def test_get_windows_version_from_kernel_invalid(self):
         kernel_version = "14393-bla"
         with pytest.raises(InvalidWindowsKernelError):

@@ -16,7 +16,7 @@ class WindowsFlavour(Enum):
     WindowsServer2022H2 = "Microsoft Windows Server 2022 H2"  # Windows-10.0.22621
     WindowsServer2025 = "Microsoft Windows Server 2025"  # Windows-10.0.26100
     AzureStackHCI22H2 = "Azure Stack HCI 22H2"  # Windows-10.0.20349
-    AzureStackHCI23H2 = "Azure Stack HCI 23H2"  # Windows-10.0.22631
+    AzureStackHCI23H2 = "Azure Stack HCI 23H2"  # Windows-10.0.25398
     AzureStackHCI24H2 = "Azure Stack HCI 24H2"  # Windows-10.0.26100
 
 
