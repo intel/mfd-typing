@@ -115,6 +115,40 @@ class Testutils:
         with pytest.raises(UnknownWindowsKernelVersionError):
             utils.get_windows_version_from_kernel(kernel_version=kernel_version)
 
+    def test_get_windows_version_from_system_info_pass_16(self):
+        system_info = utils.SystemInfo()
+        system_info.kernel_version = "14393"
+        expected_windows_version = WindowsFlavour.WindowsServer2016
+        assert utils.get_windows_version_from_system_info(system_info=system_info) == expected_windows_version
+
+    def test_get_windows_version_from_system_info_pass_2025(self):
+        system_info = utils.SystemInfo()
+        system_info.kernel_version = "26100"
+        system_info.os_name = "Microsoft Windows Server 2025 Standard"
+        expected_windows_version = WindowsFlavour.WindowsServer2025
+        assert utils.get_windows_version_from_system_info(system_info=system_info) == expected_windows_version
+
+    def test_get_windows_version_from_system_info_pass_AzureStackHCI24H2(self):
+        system_info = utils.SystemInfo()
+        system_info.kernel_version = "26100"
+        system_info.os_name = "Azure Stack HCI 24H2"
+        expected_windows_version = WindowsFlavour.AzureStackHCI24H2
+        assert utils.get_windows_version_from_system_info(system_info=system_info) == expected_windows_version
+
+    def test_get_windows_version_from_system_info_invalid(self):
+        system_info = utils.SystemInfo()
+        system_info.kernel_version = "14393-bla"
+        system_info.os_name = "Microsoft Windows Server 2025 Standard"
+        with pytest.raises(InvalidWindowsKernelError):
+            utils.get_windows_version_from_system_info(system_info=system_info)
+
+    def test_get_windows_version_from_system_info_unknown(self):
+        system_info = utils.SystemInfo()
+        system_info.kernel_version = "14392"
+        system_info.os_name = "Microsoft Windows Server 2025 Standard"
+        with pytest.raises(UnknownWindowsKernelVersionError):
+            utils.get_windows_version_from_system_info(system_info=system_info)
+
     @pytest.mark.parametrize("param", ["yes", "YES", "true", "TRUE", "1", "y", "t", True])
     def test_strtobool_true(self, param):
         assert utils.strtobool(param)

@@ -5,7 +5,7 @@
 from typing import Union, TYPE_CHECKING
 from netaddr import ipv6_verbose
 from mfd_typing.exceptions import UnknownWindowsKernelVersionError, InvalidWindowsKernelError
-from mfd_typing.os_values import WindowsFlavour
+from mfd_typing.os_values import SystemInfo, WindowsFlavour
 import re
 
 if TYPE_CHECKING:
@@ -233,6 +233,31 @@ def get_windows_version_from_kernel(kernel_version: str) -> WindowsFlavour:
         return WindowsFlavour.WindowsServer2025
     else:
         raise UnknownWindowsKernelVersionError(f"Cannot map {kernel_version} to any of supported Windows Flavours.")
+
+
+def get_windows_version_from_system_info(system_info: SystemInfo) -> WindowsFlavour:
+    """
+    Map Windows System Info to Windows Flavour.
+
+    Using kernel version + os name to determine the exact Windows Flavour.
+
+    :param system_info: SystemInfo object
+    :return: Windows OS Version
+    """
+    kernel_version_str = system_info.kernel_version
+    try:
+        kernel_version = int(kernel_version_str)
+    except ValueError:
+        raise InvalidWindowsKernelError(f"Cannot convert '{kernel_version_str}' to integer.")
+
+    if kernel_version == 26100:
+        if system_info.os_name is None:
+            raise UnknownWindowsKernelVersionError(f"Cannot map {kernel_version} to any of supported Windows Flavours.")
+        return (
+            WindowsFlavour.WindowsServer2025 if "Windows" in system_info.os_name else WindowsFlavour.AzureStackHCI24H2
+        )
+    else:
+        return get_windows_version_from_kernel(kernel_version_str)
 
 
 def strtobool(param: Union[str, bool]) -> bool:
