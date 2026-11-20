@@ -230,3 +230,13 @@ class Testutils:
 
     def test_prepare_sed_string_replacement(self):
         assert '"dpcp": "notice"' == utils.prepare_sed_string(input_str='"dpcp": "notice"', pattern=r"\&")
+
+    def test_prepare_sed_string_already_escaped(self):
+        assert r"\/usr\/lib\/x" == utils.prepare_sed_string(input_str=r"/usr/lib\/x", pattern="/")
+        assert r"a\.b" == utils.prepare_sed_string(input_str=r"a\.b", pattern=".")
+        assert r"a\.b" == utils.prepare_sed_string(input_str=utils.prepare_sed_string("a.b", "."), pattern=".")
+
+    def test_prepare_sed_string_backslash_in_pattern(self):
+        assert r'"dpcp": "notice\\\.pkg"' == utils.prepare_sed_string(
+            input_str=r'"dpcp": "notice\.pkg"', pattern=r"$.*/[\]^"
+        )

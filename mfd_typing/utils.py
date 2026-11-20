@@ -316,11 +316,12 @@ def prepare_sed_string(input_str: str, pattern: str) -> str:
     :param pattern: the set of chars to be escaped
     :return: 'escaped' string
     """
+    # A char after a backslash is already escaped, unless the backslash itself gets escaped.
+    keep_escaped = "\\" not in pattern
     new_str = []
     for idx, c in enumerate(input_str):
-        if c in pattern:
-            if idx and input_str[idx - 1] != "\\" or not idx:
-                new_str.append(rf"\{c}")
+        if c in pattern and not (keep_escaped and idx and input_str[idx - 1] == "\\"):
+            new_str.append(rf"\{c}")
         else:
             new_str.append(c)
     return "".join(new_str)
